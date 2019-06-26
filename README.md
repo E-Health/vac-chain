@@ -2,7 +2,7 @@
 
 ## Work in Progress (Visit nuchange.ca / canehealth.com for updates)
 
-![vac-chain](https://raw.github.com/E-=Health/vac-chain/develop/notes/vacchain.png)
+![vac-chain](https://raw.github.com/E-Health/vac-chain/develop/notes/vacchain.png)
 
 There are discrete pieces of health information that, if stored on-chain may have a huge impact on operational efficiency, availability and patient safety. Vaccination and allergy information are typical examples.
 vac-chain is a prototype of an on-chain storage of vaccination information on Ethereum blockchain using smart contracts in solidity using the truffle Drizzle box (React/Redux). This may be extended for similar use cases in medicine.
