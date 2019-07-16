@@ -14,10 +14,11 @@ contract Encounter
 
     struct Provider {
         address addr;
+        string name;
     }
 
     struct Vaccine {
-        address addr;
+        uint64 code;
     }
 
     struct Vaccination {
@@ -26,63 +27,50 @@ contract Encounter
         Vaccine vaccine;
     }
 
-    mapping (uint => Vaccination) Vaccinations;
+    Vaccination[] public myVaccinations;
 
-    function MakeOfferRecord(int offerPrice) public
+    // Get vaccination from vaccine code
+    mapping (uint64 => Vaccination) vaccinations;
+    // Check if the vaccine was ever given
+    mapping (uint64 => bool) vaccinated;
+    // Map individuals to array of vaccines
+    mapping (address => myVaccinations) allVaccinations;
+
+    function PatientRequestRecord(uint64 vaccineCode) public
     {
-        if (offerPrice == 0)
+        if (vaccineCode == 0)
         {
             revert();
         }
 
-        if (State != StateType.ItemAvailable)
+        if (!vaccinated[vaccineCode])
         {
             revert();
         }
-
-        if (InstanceOwner == msg.sender)
-        {
-            revert();
-        }
-
-        InstanceBuyer = msg.sender;
-        OfferPrice = offerPrice;
-        State = StateType.OfferPlaced;
+        vaccinations[vaccineCode].patient.addr = msg.sender;
+        allVaccinations[msg.sender].push(vaccinations[vaccineCode]);
     }
 
-    function RejectOfferRecord() public
+    function ProviderAddRecord(uint64 vaccineCode) public
     {
-        if ( State != StateType.OfferPlaced )
+        if (vaccineCode == 0)
         {
             revert();
         }
 
-        if (InstanceOwner != msg.sender)
+        if (vaccinated[vaccineCode])
         {
             revert();
         }
 
-        InstanceBuyer = 0x0000000000000000000000000000000000000000;
-        State = StateType.ItemAvailable;
+        vaccinated[vaccineCode] = true;
+        vaccinations[vaccineCode].provider.addr = msg.sender;
+        vaccinations[vaccineCode].vaccine.code = vaccineCode;
     }
 
-    function AcceptOfferRecord() public
+    function DisplayRecord(address client) public
     {
-        if ( msg.sender != InstanceOwner )
-        {
-            revert();
-        }
-
-        State = StateType.Accepted;
+        return allVaccinations[client];
     }
 
-    function ReleaseMyRecord() public
-    {
-
-    }
-
-    function DisplayRecord() public
-    {
-
-    }
 }
