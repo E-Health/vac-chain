@@ -3,11 +3,6 @@ pragma solidity >=0.4.25 <0.6.0;
 contract Encounter
 {
 
-
-    constructor(int price) public
-    {
-    }
-
     struct Patient {
         address addr;
     }
@@ -27,14 +22,14 @@ contract Encounter
         Vaccine vaccine;
     }
 
-    Vaccination[] public myVaccinations;
+    //Vaccination[] public myVaccinations;
 
     // Get vaccination from vaccine code
     mapping (uint64 => Vaccination) vaccinations;
     // Check if the vaccine was ever given
     mapping (uint64 => bool) vaccinated;
     // Map individuals to array of vaccines
-    mapping (address => myVaccinations) allVaccinations;
+    mapping (address => Vaccination[]) allVaccinations;
 
     function PatientRequestRecord(uint64 vaccineCode) public
     {
@@ -51,7 +46,7 @@ contract Encounter
         allVaccinations[msg.sender].push(vaccinations[vaccineCode]);
     }
 
-    function ProviderAddRecord(uint64 vaccineCode) public
+    function ProviderAddRecord(uint64 vaccineCode, string memory name) public
     {
         if (vaccineCode == 0)
         {
@@ -65,10 +60,12 @@ contract Encounter
 
         vaccinated[vaccineCode] = true;
         vaccinations[vaccineCode].provider.addr = msg.sender;
+        vaccinations[vaccineCode].provider.name = name;
         vaccinations[vaccineCode].vaccine.code = vaccineCode;
     }
 
-    function DisplayRecord(address client) public
+    // Fixme: https://hackernoon.com/serializing-string-arrays-in-solidity-db4b6037e520
+    function DisplayRecord(address client) public returns (Vaccination[])
     {
         return allVaccinations[client];
     }
