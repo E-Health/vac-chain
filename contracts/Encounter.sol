@@ -64,6 +64,7 @@ contract Encounter
         vaccinations[vaccineCode].vaccine.code = vaccineCode;
     }
 
+    // TypeError: Data location must be "memory" for return parameter in function, but none was given.
     // Fixme: https://hackernoon.com/serializing-string-arrays-in-solidity-db4b6037e520
     function DisplayRecord(address client) public returns (Vaccination[])
     {

@@ -1,6 +1,7 @@
 import SimpleStorage from "./contracts/SimpleStorage.json";
 import ComplexStorage from "./contracts/ComplexStorage.json";
 import TutorialToken from "./contracts/TutorialToken.json";
+import Encounter from "./contracts/Encounter.json";
 
 const options = {
     web3: {
@@ -10,7 +11,7 @@ const options = {
             url: "ws://127.0.0.1:9545",
         },
     },
-    contracts: [SimpleStorage, ComplexStorage, TutorialToken],
+    contracts: [SimpleStorage, ComplexStorage, TutorialToken, Encounter],
     events: {
         SimpleStorage: ["StorageSet"],
     },
