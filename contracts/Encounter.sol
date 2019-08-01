@@ -1,4 +1,5 @@
 pragma solidity >=0.4.25 <0.6.0;
+pragma experimental ABIEncoderV2;
 
 contract Encounter
 {
@@ -66,9 +67,14 @@ contract Encounter
 
     // TypeError: Data location must be "memory" for return parameter in function, but none was given.
     // Fixme: https://hackernoon.com/serializing-string-arrays-in-solidity-db4b6037e520
-    function DisplayRecord(address client) public returns (Vaccination[])
+    function DisplayRecord(address client) public returns (Vaccination[20] memory)
     {
-        return allVaccinations[client];
+        Vaccination[20] memory _vaccinations;
+        //return allVaccinations[client];
+        for (uint i=0; i<20; i++) {
+            _vaccinations[i] = allVaccinations[client][i];
+        }
+        return _vaccinations;
     }
 
 }
