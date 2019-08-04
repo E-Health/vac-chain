@@ -14,6 +14,9 @@ ganache-cli -b 2 -h 192.168.0.250
     compile
     migrate
     ```
+   ```javascript
+    truffle migrate --network development
+```
 
 5. In the `app` directory, we run the React app. Smart contract changes must be manually recompiled and migrated.
     ```javascript
