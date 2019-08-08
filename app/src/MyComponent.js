@@ -21,6 +21,30 @@ export default ({ accounts }) => (
     </div>
 
     <div className="section">
+      <h2>Patient Request Record</h2>
+      <p>
+       Patients can request to add their status on blockchain
+      </p>
+      {/*<p>*/}
+      {/*  <strong>Stored Value: </strong>*/}
+      {/*  <ContractData contract="SimpleStorage" method="storedData" />*/}
+      {/*</p>*/}
+      <ContractForm contract="Encounter" method="PatientRequestRecord" />
+    </div>
+
+    <div className="section">
+      <h2>Provider Add Record</h2>
+      <p>
+        Providers add vaccine code on blockchain.
+      </p>
+      {/*<p>*/}
+      {/*  <strong>Stored Value: </strong>*/}
+      {/*  <ContractData contract="SimpleStorage" method="storedData" />*/}
+      {/*</p>*/}
+      <ContractForm contract="Encounter" method="ProviderAddRecord" />
+    </div>
+
+    <div className="section">
       <h2>SimpleStorage</h2>
       <p>
         This shows a simple ContractData component with no arguments, along with
