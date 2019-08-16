@@ -12,7 +12,7 @@ contract Encounter
     }
 
     struct Vaccine {
-        string name;
+        bytes32 name;
         uint64 code;
     }
 
@@ -28,7 +28,7 @@ contract Encounter
     // Check if the vaccine was ever given
     mapping (uint64 => bool) public vaccinated;
 
-    function PatientAddRecord(uint64 vaccineCode, string memory hcn) public
+    function PatientAddRecord(uint64 vaccineCode, bytes32 hcn) public
     {
         if (vaccineCode == 0)
         {
@@ -46,7 +46,7 @@ contract Encounter
         vaccinations[vaccineCode].patient.addr = msg.sender;
     }
 
-    function ProviderAddRecord(uint64 vaccineCode, string memory hcn, string memory name) public
+    function ProviderAddRecord(uint64 vaccineCode, bytes32 hcn, bytes32 name) public
     {
         if (vaccineCode == 0)
         {
@@ -65,7 +65,7 @@ contract Encounter
         vaccinations[vaccineCode].vaccine.name = name;
     }
 
-    function CheckVaccination(uint64 vaccineCode, string memory hcn) public view returns (string memory)
+    function CheckVaccination(uint64 vaccineCode, bytes32 hcn) public view returns (bytes32)
     {
         if (vaccineCode == 0)
         {

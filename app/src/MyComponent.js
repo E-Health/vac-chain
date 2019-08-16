@@ -15,21 +15,21 @@ export default ({ accounts }) => (
       <p>Examples of how to get started with Drizzle in various situations.</p>
     </div>
 
-    <div className="section">
-      <h2>Active Account</h2>
-      <AccountData accountIndex="0" units="ether" precision="3" />
-    </div>
+    {/*<div className="section">*/}
+    {/*  <h2>Active Account</h2>*/}
+    {/*  <AccountData accountIndex="0" units="ether" precision="3" />*/}
+    {/*</div>*/}
 
     <div className="section">
-      <h2>Patient Request Record</h2>
+      <h2>Patient Add Record</h2>
       <p>
-       Patients can request to add their status on blockchain
+       Patients add their status on blockchain
       </p>
       {/*<p>*/}
       {/*  <strong>Stored Value: </strong>*/}
       {/*  <ContractData contract="SimpleStorage" method="storedData" />*/}
       {/*</p>*/}
-      <ContractForm contract="Encounter" method="PatientRequestRecord" />
+      <ContractForm contract="Encounter" method="PatientAddRecord" />
     </div>
 
     <div className="section">
@@ -42,6 +42,18 @@ export default ({ accounts }) => (
       {/*  <ContractData contract="SimpleStorage" method="storedData" />*/}
       {/*</p>*/}
       <ContractForm contract="Encounter" method="ProviderAddRecord" />
+    </div>
+
+    <div className="section">
+      <h2>Check Record</h2>
+      <p>
+        Anybody can check vaccine stat.
+      </p>
+      {/*<p>*/}
+      {/*  <strong>Stored Value: </strong>*/}
+      {/*  <ContractData contract="SimpleStorage" method="storedData" />*/}
+      {/*</p>*/}
+
     </div>
 
     <div className="section">

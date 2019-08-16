@@ -4,6 +4,11 @@
 ganache-cli -b 2 -h 192.168.0.250 -e 100000
 
 ```
+```shell script
+truffle compile
+truffle migrate
+```
+
 
 * stop browser
 ```shell script
