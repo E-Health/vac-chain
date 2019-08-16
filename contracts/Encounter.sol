@@ -13,7 +13,6 @@ contract Encounter
 
     struct Vaccine {
         bytes32 name;
-        uint64 code;
     }
 
     struct Vaccination {
@@ -25,17 +24,11 @@ contract Encounter
 
     // Get vaccination from vaccine code
     mapping (uint64 => Vaccination) vaccinations;
-    // Check if the vaccine was ever given
-    mapping (uint64 => bool) public vaccinated;
+
 
     function PatientAddRecord(uint64 vaccineCode, bytes32 hcn) public
     {
         if (vaccineCode == 0)
-        {
-            revert();
-        }
-
-        if (!vaccinated[vaccineCode])
         {
             revert();
         }
@@ -53,26 +46,14 @@ contract Encounter
             revert();
         }
 
-        if (vaccinated[vaccineCode])
-        {
-            revert();
-        }
-
-        vaccinated[vaccineCode] = true;
         vaccinations[vaccineCode].provider.addr = msg.sender;
         vaccinations[vaccineCode].patient.hcn_hash = keccak256(abi.encode(hcn));
-        vaccinations[vaccineCode].vaccine.code = vaccineCode;
         vaccinations[vaccineCode].vaccine.name = name;
     }
 
     function CheckVaccination(uint64 vaccineCode, bytes32 hcn) public view returns (bytes32)
     {
         if (vaccineCode == 0)
-        {
-            revert();
-        }
-
-        if (!vaccinated[vaccineCode])
         {
             revert();
         }
