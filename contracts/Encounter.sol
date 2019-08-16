@@ -1,19 +1,18 @@
 pragma solidity >=0.4.25 <0.6.0;
-pragma experimental ABIEncoderV2;
-
 contract Encounter
 {
 
     struct Patient {
+        bytes32 hcn_hash;
         address addr;
     }
 
     struct Provider {
         address addr;
-        string name;
     }
 
     struct Vaccine {
+        string name;
         uint64 code;
     }
 
@@ -23,16 +22,13 @@ contract Encounter
         Vaccine vaccine;
     }
 
-    //Vaccination[] public myVaccinations;
 
     // Get vaccination from vaccine code
     mapping (uint64 => Vaccination) vaccinations;
     // Check if the vaccine was ever given
-    mapping (uint64 => bool) vaccinated;
-    // Map individuals to array of vaccines
-    mapping (address => Vaccination[]) allVaccinations;
+    mapping (uint64 => bool) public vaccinated;
 
-    function PatientRequestRecord(uint64 vaccineCode) public
+    function PatientAddRecord(uint64 vaccineCode, string memory hcn) public
     {
         if (vaccineCode == 0)
         {
@@ -43,11 +39,14 @@ contract Encounter
         {
             revert();
         }
+
+        if (vaccinations[vaccineCode].patient.hcn_hash != keccak256(abi.encode(hcn))){
+            revert();
+        }
         vaccinations[vaccineCode].patient.addr = msg.sender;
-        allVaccinations[msg.sender].push(vaccinations[vaccineCode]);
     }
 
-    function ProviderAddRecord(uint64 vaccineCode, string memory name) public
+    function ProviderAddRecord(uint64 vaccineCode, string memory hcn, string memory name) public
     {
         if (vaccineCode == 0)
         {
@@ -61,20 +60,27 @@ contract Encounter
 
         vaccinated[vaccineCode] = true;
         vaccinations[vaccineCode].provider.addr = msg.sender;
-        vaccinations[vaccineCode].provider.name = name;
+        vaccinations[vaccineCode].patient.hcn_hash = keccak256(abi.encode(hcn));
         vaccinations[vaccineCode].vaccine.code = vaccineCode;
+        vaccinations[vaccineCode].vaccine.name = name;
     }
 
-    // TypeError: Data location must be "memory" for return parameter in function, but none was given.
-    // Fixme: https://hackernoon.com/serializing-string-arrays-in-solidity-db4b6037e520
-    function DisplayRecord(address client) public returns (Vaccination[20] memory)
+    function CheckVaccination(uint64 vaccineCode, string memory hcn) public view returns (string memory)
     {
-        Vaccination[20] memory _vaccinations;
-        //return allVaccinations[client];
-        for (uint i=0; i<20; i++) {
-            _vaccinations[i] = allVaccinations[client][i];
+        if (vaccineCode == 0)
+        {
+            revert();
         }
-        return _vaccinations;
+
+        if (!vaccinated[vaccineCode])
+        {
+            revert();
+        }
+
+        if (vaccinations[vaccineCode].patient.hcn_hash != keccak256(abi.encode(hcn))){
+            revert();
+        }
+        return vaccinations[vaccineCode].vaccine.name;
     }
 
 }

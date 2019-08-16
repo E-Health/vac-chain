@@ -1,7 +1,7 @@
 ## start ganache
 
 ```text
-ganache-cli -b 2 -h 192.168.0.250
+ganache-cli -b 2 -h 192.168.0.250 -e 100000
 
 ```
 3. Run the development console.
