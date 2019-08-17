@@ -7,10 +7,9 @@ import {
 
 import logo from "./logo.png";
 
-let check = {
-    "vaccineCode": "124",
-    "hcn": "test"
-}
+
+
+
 export default ({ accounts }) => (
   <div className="App">
     <div>
@@ -57,8 +56,10 @@ export default ({ accounts }) => (
       {/*  <strong>Stored Value: </strong>*/}
       {/*  <ContractData contract="SimpleStorage" method="storedData" />*/}
       {/*</p>*/}
-        <ContractForm contract="Encounter" method="CheckVaccination" />
-        <ContractData contract="Encounter" method="CheckVaccination" methodArgs={[222,'0x6e656f']}/>
+
+      <ContractForm contract="Encounter" method="CheckVaccination"/>
+      <p>Status</p>
+      <ContractData contract="Encounter" method="Status"/>
 
     </div>
 

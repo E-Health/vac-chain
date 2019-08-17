@@ -25,6 +25,7 @@ contract Encounter
     // Get vaccination from vaccine code
     mapping (uint64 => Vaccination) vaccinations;
 
+    string public Status;
 
     function PatientAddRecord(uint64 vaccineCode, string memory _hcn) public
     {
@@ -55,7 +56,7 @@ contract Encounter
         vaccinations[vaccineCode].vaccine.name = name;
     }
 
-    function CheckVaccination(uint64 vaccineCode, string memory _hcn) public view returns (string memory)
+    function CheckVaccination(uint64 vaccineCode, string memory _hcn) public
     {
         if (vaccineCode == 0)
         {
@@ -65,10 +66,12 @@ contract Encounter
         if (vaccinations[vaccineCode].patient.hcn_hash != keccak256(abi.encode(hcn))){
             revert();
         }
-        return bytes32ToString(vaccinations[vaccineCode].vaccine.name);
+        //return bytes32ToString(vaccinations[vaccineCode].vaccine.name);
+        Status = bytes32ToString(vaccinations[vaccineCode].vaccine.name);
+
     }
 
-    function stringToBytes32(string memory source) public pure returns (bytes32 result) {
+    function stringToBytes32(string memory source) internal pure returns (bytes32 result) {
         bytes memory tempEmptyStringTest = bytes(source);
         if (tempEmptyStringTest.length == 0) {
             return 0x0;
@@ -79,7 +82,7 @@ contract Encounter
         }
     }
 
-    function bytes32ToString(bytes32 x) public pure returns (string memory) {
+    function bytes32ToString(bytes32 x) internal pure returns (string memory) {
         bytes memory bytesString = new bytes(32);
         uint charCount = 0;
         for (uint j = 0; j < 32; j++) {
