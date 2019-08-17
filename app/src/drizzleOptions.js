@@ -1,22 +1,24 @@
 import SimpleStorage from "./contracts/SimpleStorage.json";
 import ComplexStorage from "./contracts/ComplexStorage.json";
 import TutorialToken from "./contracts/TutorialToken.json";
+import Encounter from "./contracts/Encounter.json";
 
 const options = {
-  web3: {
-    block: false,
-    fallback: {
-      type: "ws",
-      url: "ws://127.0.0.1:9545",
+    web3: {
+        block: false,
+        fallback: {
+            type: "ws",
+            //url: "ws://127.0.0.1:9545",
+            url: "ws://192.168.0.250:8545",
+        },
     },
-  },
-  contracts: [SimpleStorage, ComplexStorage, TutorialToken],
-  events: {
-    SimpleStorage: ["StorageSet"],
-  },
-  polls: {
-    accounts: 1500,
-  },
+    contracts: [SimpleStorage, ComplexStorage, TutorialToken, Encounter],
+    events: {
+        SimpleStorage: ["StorageSet"],
+    },
+    polls: {
+        accounts: 1500,
+    },
 };
 
 export default options;
