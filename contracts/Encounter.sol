@@ -27,14 +27,14 @@ contract Encounter
 
     string public Status;
 
-    function PatientAddRecord(uint64 vaccineCode, string memory _hcn) public
+    function PatientAddRecord(uint64 vaccineCode, string memory hcn) public
     {
         if (vaccineCode == 0)
         {
             revert();
         }
 
-        bytes32 hcn = stringToBytes32(_hcn);
+        bytes32 _hcn= stringToBytes32(hcn);
 
         if (vaccinations[vaccineCode].patient.hcn_hash != keccak256(abi.encode(hcn))){
             revert();
@@ -42,27 +42,27 @@ contract Encounter
         vaccinations[vaccineCode].patient.addr = msg.sender;
     }
 
-    function ProviderAddRecord(uint64 vaccineCode, string memory _hcn, string memory _name) public
+    function ProviderAddRecord(uint64 vaccineCode, string memory hcn, string memory name) public
     {
         if (vaccineCode == 0)
         {
             revert();
         }
 
-        bytes32 hcn = stringToBytes32(_hcn);
-        bytes32 name = stringToBytes32(_name);
+        bytes32 _hcn= stringToBytes32(hcn);
+        bytes32 _name = stringToBytes32(name);
         vaccinations[vaccineCode].provider.addr = msg.sender;
         vaccinations[vaccineCode].patient.hcn_hash = keccak256(abi.encode(hcn));
-        vaccinations[vaccineCode].vaccine.name = name;
+        vaccinations[vaccineCode].vaccine.name = _name;
     }
 
-    function CheckVaccination(uint64 vaccineCode, string memory _hcn) public
+    function CheckVaccination(uint64 vaccineCode, string memory hcn) public
     {
         if (vaccineCode == 0)
         {
             revert();
         }
-        bytes32 hcn = stringToBytes32(_hcn);
+        bytes32 _hcn= stringToBytes32(hcn);
         if (vaccinations[vaccineCode].patient.hcn_hash != keccak256(abi.encode(hcn))){
             revert();
         }
