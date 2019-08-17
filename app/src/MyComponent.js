@@ -60,7 +60,7 @@ export default ({ accounts }) => (
 
       <ContractForm contract="Encounter" method="CheckVaccination"/>
       <p>Status</p>
-      <ContractData contract="Encounter" method="Status"/>
+      <ContractData contract="Encounter" method="Status" methodArgs={[accounts[0]]}/>
 
     </div>
 
