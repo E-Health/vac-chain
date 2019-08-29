@@ -59,8 +59,14 @@ contract Encounter
 
     function CheckVaccination(uint64 vaccineCode, string memory hcn) public
     {
+        Status[msg.sender] = bytes32ToString("");
         if (vaccineCode == 0)
         {
+            revert();
+        }
+        if (vaccinations[vaccineCode].patient.addr == address(0)){
+            // check if the address is not set
+            // Address is set if patient approved
             revert();
         }
         bytes32 _hcn= stringToBytes32(hcn);
@@ -70,6 +76,8 @@ contract Encounter
         // FIXME: currently return string is stored in a map which is used by ContractData.
         // TODO: Explore a  way in drizzle-react-components to directly display this return value.
         // return bytes32ToString(vaccinations[vaccineCode].vaccine.name);
+        // Here the msg.sender is the requester's address, not patients.
+        // Used only to display the results to the requester.
         Status[msg.sender] = bytes32ToString(vaccinations[vaccineCode].vaccine.name);
 
     }
