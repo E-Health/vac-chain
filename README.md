@@ -63,4 +63,4 @@ First ensure you are in a new and empty directory.
 
 ## Author
 
-Bell Eapen (McMaster U) [Homepage](https://nuchange.ca)
+Bell Eapen (McMaster U) | [Homepage](https://nuchange.ca)
