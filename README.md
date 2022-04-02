@@ -23,7 +23,8 @@ truffle migrate
 ## Steps
 * Provider adds a record
 * Patient confirms
-* Clients can verify
+* Clients can verify - if *code* matches *hcn*, returns *name* as status
+* Please note that, for the *status* to work, all three roles should have different active accounts
 ## Author
 
 Bell Eapen (McMaster U) | [Homepage](https://nuchange.ca)
