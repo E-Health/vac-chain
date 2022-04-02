@@ -17,6 +17,7 @@ truffle compile
 truffle migrate
 ```
 *  switch to app folder *cd app*
+* *npm install*
 * *npm start*
 * Access application at **localhost:3000**
 
