@@ -7,7 +7,7 @@ module.exports = {
   contracts_build_directory: path.join(__dirname, "app/src/contracts"),
   networks: {
     development: {
-      host: "192.168.0.250",
+      host: "127.0.0.1",
       port: 8545,
       network_id: "*", // match any network
       websockets: true
