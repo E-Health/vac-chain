@@ -25,7 +25,7 @@ truffle migrate
 * Provider adds a record
 * Patient confirms
 * Clients can verify - if *code* matches *hcn*, returns *name* as status
-* Please note that, for the *status* to work, all three roles should have different active accounts
+* Please note that, for the *status* to work, all three roles should have different active accounts. So run *ganache* on a different machine and add the IP to drizzleOptions.js and truffle-config.js. Finally, run the /app on three different systems for each role.
 ## Author
 
 Bell Eapen (McMaster U) | [Homepage](https://nuchange.ca)
